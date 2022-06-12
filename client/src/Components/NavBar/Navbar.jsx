@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllPokemons } from "../../Redux/Actions/action";
+//import { getAllPokemons } from "../../Redux/Actions/action";
 import styles from "./Navbar.module.css";
 
 const NavBar = () => {
-  const dispatch = useDispatch();
+  //  const dispatch = useDispatch();
   return (
     <div className={styles.principal}>
       <div>
@@ -13,7 +13,9 @@ const NavBar = () => {
           <button
             className="homeButton"
             type="button"
-            onClick={() => dispatch(getAllPokemons())}
+            onClick={() => {
+              window.location.reload();
+            }}
           >
             Pokemons
           </button>

@@ -3,11 +3,11 @@ import styles from "./Card.module.css";
 import { Link } from "react-router-dom";
 
 export const Card = ({ id, name, sprite, type }) => {
-  console.log(type, " este es el types");
+  // console.log(type, " este es el types");
   return (
     <div className={styles.Card}>
       <div>
-        <h3>{name.toUpperCase()}</h3>
+        <h3>{name}</h3>
       </div>
       <div>
         {" "}

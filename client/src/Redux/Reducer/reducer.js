@@ -5,6 +5,7 @@ import {
   GET_TYPE,
   FILTER_BY,
   ORDER_BY,
+  CLEAN_DETAILS,
 } from "../Actions/types.js";
 
 const initialState = {
@@ -41,6 +42,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         typesPokemons: action.payload,
+      };
+    case CLEAN_DETAILS:
+      return {
+        ...state,
+        detailsPokemons: action.payload,
       };
 
     case FILTER_BY:

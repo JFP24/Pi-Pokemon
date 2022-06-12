@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getPokemonId } from "../../Redux/Actions/action";
+import { getPokemonId, cleanDetails } from "../../Redux/Actions/action";
 import { Link } from "react-router-dom";
 export const CardDetails = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const CardDetails = () => {
   useEffect(() => {
     dispatch(getPokemonId(id));
     console.log("este es el espacio");
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const { sprite, life, type, name, height, attack, defense, speed, weight } =
     pokemonDetail;
@@ -20,6 +20,10 @@ export const CardDetails = () => {
   const truncateString = (str, num) => {
     if (str.length <= num) return str;
     return str.slice(0, num) + "...";
+  };
+
+  const handleClean = () => {
+    dispatch(cleanDetails());
   };
 
   return (
@@ -45,7 +49,7 @@ export const CardDetails = () => {
             <h5>#{truncateString(id.toString(), 4)}</h5>
           </span>
           <Link to={"/Home"}>
-            <button>Regresar</button>
+            <button onClick={() => handleClean()}>Regresar</button>
           </Link>
         </div>
       ) : (

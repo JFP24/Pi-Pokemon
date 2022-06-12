@@ -6,6 +6,7 @@ import {
   GET_TYPE,
   FILTER_BY,
   ORDER_BY,
+  CLEAN_DETAILS,
 } from "./types.js";
 
 //conexion con el back
@@ -38,6 +39,13 @@ export const getPokemonId = (id) => {
       console.log(error);
       return alert("No Existe el pokemon");
     }
+  };
+};
+
+export const cleanDetails = () => {
+  return {
+    type: CLEAN_DETAILS,
+    payload: {},
   };
 };
 
