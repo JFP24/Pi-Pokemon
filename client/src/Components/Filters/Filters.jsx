@@ -3,15 +3,29 @@ import React from "react";
 import { orderBy, filterType } from "../../Redux/Actions/action";
 import { useDispatch } from "react-redux";
 
-export const Filters = () => {
+export const Filters = ({ pokeCurrent }) => {
   const dispatch = useDispatch();
 
   const handleSelect = (e) => {
-    dispatch(orderBy(e.target.value));
+    dispatch(orderBy(e.target.value, pokeCurrent));
+  };
+  const handleSelect2 = (e) => {
+    dispatch(filterType(e.target.value, pokeCurrent));
   };
 
   return (
     <div>
+      <select onChange={handleSelect2}>
+        <option value="default">TODOS...</option>
+        <optgroup label="DataBase">
+          <option className="option" value="DB">
+            CREADOS
+          </option>
+        </optgroup>
+        <optgroup label="API">
+          <option value="API">API</option>
+        </optgroup>
+      </select>
       <select onChange={handleSelect}>
         <option value="default">ORDEN...</option>
         <optgroup label="Rating">

@@ -1,11 +1,12 @@
 import React from "react";
 import { Card } from "../Card/Cards";
+import styles from "./cardsHome.module.css";
 
 export const CardsHome = ({ pokeCurrent }) => {
   console.log(pokeCurrent, " desce cardHome");
 
   return (
-    <div className="cardList">
+    <div className={styles.home}>
       {Array.isArray(pokeCurrent) ? (
         pokeCurrent.map((poke) => (
           <Card
@@ -13,7 +14,8 @@ export const CardsHome = ({ pokeCurrent }) => {
             id={poke.id}
             name={poke.name}
             sprite={poke.sprite}
-            type={poke.type}
+            types={poke.types}
+            attack={poke.attack}
           />
         ))
       ) : (
@@ -22,7 +24,8 @@ export const CardsHome = ({ pokeCurrent }) => {
           id={pokeCurrent.id}
           name={pokeCurrent.name}
           sprite={pokeCurrent.sprite}
-          type={pokeCurrent.type}
+          types={pokeCurrent.types}
+          attack={pokeCurrent.attack}
         />
       )}
     </div>

@@ -2,18 +2,12 @@ import React from "react";
 import styles from "./Card.module.css";
 import { Link } from "react-router-dom";
 
-export const Card = ({ id, name, sprite, type }) => {
-  // console.log(type, " este es el types");
+export const Card = ({ id, name, sprite, types, attack }) => {
+  //console.log(types, " este es el types");
   return (
     <div className={styles.Card}>
-      <div>
-        <h3>{name}</h3>
-      </div>
-      <div>
-        {" "}
-        <h3>{type}</h3>
-      </div>
-      <div className="image">
+      <div className={styles.name}>{name.toUpperCase()}</div>
+      <div className={styles.img}>
         <img
           src={
             sprite ||
@@ -24,8 +18,19 @@ export const Card = ({ id, name, sprite, type }) => {
           alt={name}
         />
       </div>
+      <div className={styles.types}>
+        Types :
+        {types?.map((type) => (
+          <p key={type.name} value={type.name}>
+            - {type.name.toUpperCase()}
+          </p>
+        ))}
+      </div>
+
+      <div className={styles.attack}>Attack : {attack}</div>
+
       <Link to={`/Details/${id}`}>
-        <button>Detalles</button>
+        <button className={styles.button}>Detalles</button>
       </Link>
     </div>
   );

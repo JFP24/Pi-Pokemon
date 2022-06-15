@@ -5,7 +5,8 @@ import NavBar from "../NavBar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPokemons } from "../../Redux/Actions/action";
 import { Pokedex } from "../Pokedex/Pokedes";
-import { Filters } from "../Filters/Filters";
+//import { Search } from "../SearchName/Search";
+//import { Filters } from "../Filters/Filters";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -14,12 +15,12 @@ export const Home = () => {
   useEffect(() => {
     dispatch(getAllPokemons());
   }, [dispatch]);
-  console.log(allPokemons);
+  //console.log(allPokemons);
 
   return (
     <div>
       <NavBar />
-      <Filters />
+
       <div>
         {allPokemons.length > 0 ? (
           <Pokedex allPokemons={allPokemons} />

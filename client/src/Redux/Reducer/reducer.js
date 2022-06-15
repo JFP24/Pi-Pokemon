@@ -13,7 +13,6 @@ const initialState = {
   detailsPokemons: {},
   typesPokemons: [],
   filterPokemons: [],
-  filtered: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -22,7 +21,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allPokemons: action.payload,
-        filtered: action.payload,
         filterPokemons: action.payload,
       };
 
@@ -46,18 +44,19 @@ const rootReducer = (state = initialState, action) => {
     case CLEAN_DETAILS:
       return {
         ...state,
+        allPokemons: action.payload,
         detailsPokemons: action.payload,
       };
 
     case FILTER_BY:
       if (action.payload === "default") {
-        return { ...state, filtered: state.filterPokemons };
+        return { ...state, allPokemons: state.filterPokemons };
       }
 
       if (action.payload === "DB") {
         return {
           ...state,
-          filtered: state.filterPokemons.filter(
+          allPokemons: state.filterPokemons.filter(
             (pokemon) => typeof pokemon.id === "string"
           ),
         };
@@ -65,25 +64,25 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload === "API") {
         return {
           ...state,
-          filtered: state.filterPokemons.filter(
+          allPokemons: state.filterPokemons.filter(
             (pokemon) => typeof pokemon.id === "number"
           ),
         };
       } else {
         return {
           ...state,
-          filtered: state.filterPokemons.filter((pokemon) => {
-            return pokemon.types.find((types) => {
-              return types === action.payload;
-            });
-          }),
+          allPokemons: state.filterPokemons.filter(
+            (poke) =>
+              poke.types.map((type) => type.name)[0] === action.payload ||
+              poke.types.map((type) => type.name)[1] === action.payload
+          ),
         };
       }
     case ORDER_BY:
       if (action.payload === "A-Z") {
         return {
           ...state,
-          filtered: [...state.filtered].sort((prev, next) => {
+          allPokemons: [...state.allPokemons].sort((prev, next) => {
             if (prev.name > next.name) return 1;
             if (prev.name < next.name) return -1;
             return 0;
@@ -94,7 +93,7 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload === "Z-A") {
         return {
           ...state,
-          filtered: [...state.filtered].sort((prev, next) => {
+          allPokemons: [...state.allPokemons].sort((prev, next) => {
             if (prev.name > next.name) return -1;
             if (prev.name < next.name) return 1;
             return 0;
@@ -105,7 +104,7 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload === "desc") {
         return {
           ...state,
-          filtered: [...state.filtered].sort(
+          allPokemons: [...state.allPokemons].sort(
             (prev, next) => prev.attack - next.attack
           ),
         };
@@ -114,12 +113,12 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload === "asc") {
         return {
           ...state,
-          filtered: [...state.filtered].sort(
+          allPokemons: [...state.allPokemons].sort(
             (prev, next) => next.attack - prev.attack
           ),
         };
       } else {
-        return { ...state, filtered: state.filterPokemons };
+        return { ...state, allPokemons: state.filterPokemons };
       }
 
     default:

@@ -16,7 +16,7 @@ router.get("/pokemon", async (req, res) => {
   try {
     if (!name) {
       let infoApi = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?limit=10`
+        `https://pokeapi.co/api/v2/pokemon?limit=40`
       );
       let data = infoApi.data.results;
       const totalUrls = data.map((obj) => axios.get(obj.url));
@@ -25,7 +25,7 @@ router.get("/pokemon", async (req, res) => {
         return {
           id: p.data.id,
           name: p.data.name,
-          type: p.data.types.map((t) => t.type.name),
+          types: p.data.types.map((p) => p.type),
           hp: p.data.stats[0].base_stat,
           attack: p.data.stats[1].base_stat,
           defense: p.data.stats[2].base_stat,
@@ -61,7 +61,7 @@ router.get("/pokemon", async (req, res) => {
           speed: infoDb.speed,
           height: infoDb.height,
           weight: infoDb.weight,
-          sprite: infoDb.sprite,
+
           // types:
           //   infoDb.types.length < 2
           //     ? [infoDb.types[0]]
@@ -81,15 +81,16 @@ router.get("/pokemon", async (req, res) => {
           speed: api.data.stats[5].base_stat,
           height: api.data.height,
           weight: api.data.weight,
-          type: api.data.types.map((t) => t.type.name),
+          sprite: api.data.sprites.other.dream_world.front_default,
+          types: api.data.types.map((t) => t.type),
         };
         //   console.log(infoPokemon);
         return res.status(202).send(infoPokemon);
       }
     }
   } catch (error) {
-    res.send("NO HAY POKEMON");
     console.log(error);
+    res.status(404).send("NO HAY POKEMON");
   }
 });
 
@@ -112,7 +113,7 @@ router.get("/pokemon/:id", async (req, res) => {
       };
       // console.log(detalisDb);
       return res.status(202).send(detalisDb);
-    } else if (id) {
+    } else {
       const infoApi = await axios.get(
         `https://pokeapi.co/api/v2/pokemon/${id}`
       );

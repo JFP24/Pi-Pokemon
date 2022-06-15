@@ -54,7 +54,7 @@ export const getNamePokemon = (name) => {
   return async (dispatch) => {
     try {
       const namePokemon = await axios(
-        `http://localhost:3001/pokemons?name=${name}`
+        `http://localhost:3001/pokemon?name=${name}`
       );
       return dispatch({
         type: GET_POKEMON_NAME,

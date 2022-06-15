@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getPokemonId, cleanDetails } from "../../Redux/Actions/action";
 import { Link } from "react-router-dom";
+
 export const CardDetails = () => {
   const dispatch = useDispatch();
   const pokemonDetail = useSelector((state) => state.detailsPokemons);
@@ -14,8 +15,19 @@ export const CardDetails = () => {
     console.log("este es el espacio");
   }, [dispatch, id]);
 
-  const { sprite, life, type, name, height, attack, defense, speed, weight } =
-    pokemonDetail;
+  // const { sprite, life, type, name, height, attack, defense, speed, weight } =
+  //   pokemonDetail;
+  const {
+    sprite,
+    // life,
+    type,
+    name,
+    // height,
+    //    attack,
+    //   defense,
+    //     speed,
+    //    weight,
+  } = pokemonDetail;
 
   const truncateString = (str, num) => {
     if (str.length <= num) return str;
