@@ -25,12 +25,11 @@ export const TypesPokemon = ({ setPokeCurrent }) => {
     <div className={styles.container}>
       <select onChange={handleSelect}>
         <optgroup label="TYPES">
-          {types &&
-            types.map((g) => (
-              <option key={g.name} value={g.name}>
-                {g.name}
-              </option>
-            ))}
+          {types?.map((g) => (
+            <option key={g.name} value={g.name}>
+              {g.name}
+            </option>
+          ))}
         </optgroup>
       </select>
     </div>

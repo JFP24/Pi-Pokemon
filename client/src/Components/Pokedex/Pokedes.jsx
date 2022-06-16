@@ -10,6 +10,25 @@ import { getAllPokemons } from "../../Redux/Actions/action";
 export const Pokedex = ({ allPokemons }) => {
   const dispatch = useDispatch();
   const [pokeCurrent, setPokeCurrent] = useState(allPokemons); //lo cargo
+  // const [currentPage, setCurrentPage] = useState(1); //creamos un stado local para setear la paginacion o pagina actual
+  // const [pokemonsPerPage] = useState(12); //creamos un stado local para setear la cantidad de pokemons por pagina
+  // const indexOfLastPokemon = currentPage * pokemonsPerPage; //mis pokemons por pagina
+  // const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage; //aqui restamos la cantidad de pokemons por pagina y me da 0
+
+  // const currentPokemons = allPokemons.slice(
+  //   indexOfFirstPokemon,
+  //   indexOfLastPokemon
+  // ); // creamos un estado local para setear los pokemons de la pagina actual
+
+  // const paginado = (pageNumber) => {
+  //   // me ayuda al renderizado del paginado
+  //   setCurrentPage(pageNumber);
+  // };
+
+  // const paginate = (pageNumber) => {
+  //   setCurrentPage(pageNumber);
+  // };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage] = useState(15);
   //* indices de la paginación:
@@ -22,7 +41,6 @@ export const Pokedex = ({ allPokemons }) => {
   } else {
     currentCards = allPokemons.slice(indexOfFirstCard, indexOfLastCard); //uso los indices para "fraccionar que juegos muestro"
   }
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -42,17 +60,16 @@ export const Pokedex = ({ allPokemons }) => {
       <TypesPokemon setPokeCurrent={setPokeCurrent} />
       <Filters pokeCurrent={pokeCurrent} />
       <Pagination
-        setPokeCurrent={setPokeCurrent}
-        allPokemons={allPokemons}
         cardPerPage={cardPerPage}
+        allPokemons={allPokemons}
         paginate={paginate}
         currentPage={currentPage}
       />
 
       {/* <CardsHome pokeCurrent={pokeCurrent} /> */}
 
-      {pokeCurrent.length > 0 ||
-      (pokeCurrent.name !== undefined && pokeCurrent.name !== "Error") ? (
+      {currentCards.length > 0 ||
+      (currentCards.name !== undefined && currentCards.name !== "Error") ? (
         <CardsHome pokeCurrent={pokeCurrent} />
       ) : (
         alert("No pokemon")

@@ -7,10 +7,10 @@ export const Filters = ({ pokeCurrent }) => {
   const dispatch = useDispatch();
 
   const handleSelect = (e) => {
-    dispatch(orderBy(e.target.value, pokeCurrent));
+    dispatch(orderBy(e.target.value));
   };
   const handleSelect2 = (e) => {
-    dispatch(filterType(e.target.value, pokeCurrent));
+    dispatch(filterType(e.target.value));
   };
 
   return (
