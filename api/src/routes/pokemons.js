@@ -16,10 +16,10 @@ router.get("/pokemon", async (req, res) => {
   try {
     if (!name) {
       let infoApi = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?limit=40`
+        `https://pokeapi.co/api/v2/pokemon?limit=20 `
       );
       let data = infoApi.data.results;
-      const totalUrls = data.map((obj) => axios.get(obj.url));
+      const totalUrls = await data.map((obj) => axios.get(obj.url));
       const promiseUrl = await axios.all(totalUrls);
       let detailsData = promiseUrl.map((p) => {
         return {
@@ -143,7 +143,7 @@ router.get("/pokemon/:id", async (req, res) => {
 router.post("/pokemons", async (req, res) => {
   try {
     const { name, hp, attack, defense, speed, height, weight, types } =
-      req.body;
+      req.body; //me llega por el formulario
     const myPoke = await Pokemon.create({
       name,
       hp,
@@ -152,13 +152,16 @@ router.post("/pokemons", async (req, res) => {
       speed,
       height,
       weight,
-      types,
     });
-    //const pokeTypedb = await Type.findAll();
-    //let createdMyPoke = await myPoke.addType(pokeTypedb);
+    const pokeTypedb = await Type.findAll({
+      where: {
+        name: types,
+      },
+    });
+    await myPoke.addType(pokeTypedb);
 
     console.log(myPoke);
-    return res.send(myPoke);
+    return res.send("POKEMON CREADO");
   } catch (error) {
     console.log(error);
   }
